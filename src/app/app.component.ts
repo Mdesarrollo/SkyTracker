@@ -1,14 +1,19 @@
 import { Component } from '@angular/core';
+import { Router} from '@angular/router';
 import { RouterOutlet } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { HistorialComponent } from './historial/historial.component';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LoginComponent,HistorialComponent],
+  standalone: true,
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'SkyTracker';
+  constructor(private router: Router) { }
+
+  navegarHistorial(){
+    this.router.navigate(['historial'])
+  }
 }
