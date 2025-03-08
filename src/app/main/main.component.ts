@@ -2,20 +2,20 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-historial',
+  selector: 'app-main',
   standalone: true,
   imports: [],
-  templateUrl: './historial.component.html',
-  styleUrl: './historial.component.css'
+  templateUrl: './main.component.html',
+  styleUrl: './main.component.css'
 })
-export class HistorialComponent {
+export class MainComponent {
   constructor(private router: Router) { }
-  
-  navegarLogin(){
+
+  navegarlogin(){
     this.router.navigate(['login'])
   }
 
-  navegarMain(){
-    this.router.navigate(['main'])
+  navegarHistorial(){
+    this.router.navigate(['historial'])
   }
 }

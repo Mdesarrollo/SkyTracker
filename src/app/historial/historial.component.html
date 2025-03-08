@@ -1,185 +1,257 @@
-<body class="grid place-items-center w-full">
-    <menu class="grid-rows-2 grid-cols-1 border-2">
-        <div class="flex border-2 justify-between">
-            <h1>Historial Meteorologico</h1>
-            <input class="border-2" type="search" placeholder="Buscador" >
-        </div>
-        <div class="flex gap-36 border-2">
-            <div>
-                <p>Ciudad</p>
-                <img src="" alt="">
+<!-- 
+ fondo=#b4ffff
+letras=#0052d0
+hover =#0080e7 
+-->
+<body class="flex w-full">
+    <div class="flex">
+        <!-- Creacion del header de la seccion de prevision vertical -->
+        <div class="bg-[#b4ffff] w-18 justify-between">
+            <!-- Prevision -->
+            <div class="flex items-center justify-center mt-4 cursor-pointer ">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-7 h-7 text-[#0052d0] fill-current cursor-pointer  hover:bg-[#0080e7] transition rounded-lg">
+                    <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
+                </svg>
             </div>
-            <div>
-                <p>Ciudad</p>
-                <img src="" alt="">
-            </div>
-            <div>
-                <p>Ciudad</p>
-                <img src="" alt="">
-            </div>
-            <div>
-                <p>Ciudad</p>
-                <img src="" alt="">
-            </div>
-            <div>
-                <p>Ciudad</p>
-                <img src="" alt="">
-            </div>
-            <div>
-                <p>Ciudad</p>
-                <img src="" alt="">
-            </div>
-            <div>
-                <p>Ciudad</p>
-                <img src="" alt="">
-            </div>
-        </div>
-    </menu>
-
-    <main>
-        <div class="flex gap-5">
-            <h2>Ocaña Norte de Santander</h2>
-            <img src="" alt="casa">
-        </div>
-        <div class="flex gap-5 border-2 h-10 items-center">
-            <h1>Tiempo Historico</h1>
-            <select  name="año" id="año" >
-                <option value="12">Ultimo Doce Meses</option>
-                <option value="2025">2025</option>
-                <option value="2024">2024</option>
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
-            </select>
-            <select  name="mes" id="mes" >
-                <option value="mes">Todos los Meses</option>
-                <option value="Enero">Enero</option>
-                <option value="Febrero">Febrero</option>
-                <option value="Marzo">Marzo</option>
-                <option value="Abril">Abril</option>
-            </select>
-        </div>
-        <div>
-            <div class="flex gap-8 border-2 h-14">
-                <button class="cursor-pointer" type="button" >Temperatura</button>
-                <button class="cursor-pointer" type="button">Precipitacion</button>
-                <button class="cursor-pointer" type="button">Humedad</button>
-                <button class="cursor-pointer" type="button">Viento</button>
-            </div>
-            <div class="border-2">
-                <img class="w-full" src="https://geoinnova.org/wp-content/uploads/2022/07/anomalias-temperaturas-anuales-750x422.jpg" alt="">
-            </div>
-            <div class="flex flex-wrap w-3xl gap-5 border-2 mt-2">
-                <span class="gap-4 flex">
-                    <input type="checkbox" name="maicol" id="">
-                    <label for="">click aqui</label>
-                </span>
-                <span class="gap-4 flex">
-                    <input type="checkbox" name="maicol" id="">
-                    <label for="">click aqui</label>
-                </span>
-                <span class="gap-4 flex">
-                    <input type="checkbox" name="maicol" id="">
-                    <label for="">click aqui</label>
-                </span>
-                <span class="gap-4 flex">
-                    <input type="checkbox" name="maicol" id="">
-                    <label for="">click aqui</label>
-                </span>
-                <span class="gap-4 flex">
-                    <input type="checkbox" name="maicol" id="">
-                    <label for="">click aqui</label>
-                </span>
-                <span class="gap-4 flex">
-                    <input type="checkbox" name="maicol" id="">
-                    <label for="">click aqui</label>
-                </span>
-            </div>
-        </div>
-        <section class="flex  w-3xl">
-            <div class="w-1/2 border-2">
-                <img src="https://negociosverdestec.wordpress.com/wp-content/uploads/2011/10/vane2.png" alt="">
-            </div>
-            <div class="w-1/2 border-2">
-                <img src="https://negociosverdestec.wordpress.com/wp-content/uploads/2011/10/vane2.png" alt="">
-            </div>
-        </section>
-        <table class="border-2">
-            <tr class="flex gap-10">
-                <th>Resumen diario</th>
-                <th>Max</th>
-                <th>Promedio</th>
-                <th>Min</th>
-            </tr>
-            <tr class="flex gap-14">
-                <td>Temeperatura alta</td>
-                <td>24</td>
-                <td>20</td>
-                <td>15</td>
-            </tr>
-            <tr class="flex gap-14">
-                <td>Temeperatura Baja</td>
-                <td>24</td>
-                <td>20</td>
-                <td>15</td>
-            </tr>
-            <tr class="flex gap-18">
-                <td>Precipitacion</td>
-                <td>24</td>
-                <td>20</td>
-                <td>15</td>
-            </tr>
-            <tr class="flex gap-22">
-                <td>Viento</td>
-                <td>24</td>
-                <td>20</td>
-                <td>15</td>
-            </tr>
             
-        </table>
-        <table class="border-2">
-            <tr class="flex gap-10">
-                <th>Informacion sobre el tiempo</th>
-                <th>Ultimos Meses</th>
-                <th>Todos los años</th>
-            </tr>
-            <tr class="flex gap-14 ">
-                <span>
-                    <img src="" alt="">
-                    <td>Mes mas Caluroso </td>
-                </span>
-                <td>24</td>
-                <td>20</td>
-                <td>15</td>
-            </tr>
-            <tr class="flex gap-14">
-                <span>
-                    <img src="" alt="">
-                    <td>Mes mas frio </td>
-                </span>
-                <td>24</td>
-                <td>20</td>
-                <td>15</td>
-            </tr>
-            <tr class="flex gap-18 bg-[#0052d0]">
-                <span>
-                    <img src="" alt="">
-                    <td>Mes mas Humedo </td>
-                </span>
-                <td>24</td>
-                <td>20</td>
-                <td>15</td>
-            </tr>
-            <tr class="flex gap-22">
-                <span>
-                    <img src="" alt="">
-                    <td>Mes con mas Viento</td>
-                </span>
-                <td>24</td>
-                <td>20</td>
-                <td>15</td>
-            </tr>
-            
-        </table>
+            <div (click)="navegarMain()" class="flex items-center justify-center mt-4 cursor-pointer ">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="w-7 h-7 text-[#0052d0] fill-current hover:bg-[#0080e7] transition rounded-lg">
+                    <path d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/>
+                </svg>
+            </div>
+            <!-- Mapas -->
+            <div class="flex items-center justify-center mt-8 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="w-7 h-7 text-[#0052d0] fill-current hover:bg-[#0080e7] transition rounded-lg ">
+                    <path d="M384 476.1L192 421.2l0-385.3L384 90.8l0 385.3zm32-1.2l0-386.5L543.1 37.5c15.8-6.3 32.9 5.3 32.9 22.3l0 334.8c0 9.8-6 18.6-15.1 22.3L416 474.8zM15.1 95.1L160 37.2l0 386.5L32.9 474.5C17.1 480.8 0 469.2 0 452.2L0 117.4c0-9.8 6-18.6 15.1-22.3z"/>
+                </svg>
+            </div>
+            <!-- Prevision hora -->
+            <div class="flex items-center justify-center mt-8 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-7 h-7 text-[#0052d0] fill-current hover:bg-[#0080e7] transition rounded-lg ">
+                    <path d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/>
+                </svg>
+            </div>
+            <!-- Prevision Mensual -->
+            <div class="flex items-center justify-center mt-8 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-7 h-7 text-[#0052d0] fill-current hover:bg-[#0080e7] transition rounded-lg ">
+                    <path d="M128 0c17.7 0 32 14.3 32 32l0 32 128 0 0-32c0-17.7 14.3-32 32-32s32 14.3 32 32l0 32 48 0c26.5 0 48 21.5 48 48l0 48L0 160l0-48C0 85.5 21.5 64 48 64l48 0 0-32c0-17.7 14.3-32 32-32zM0 192l448 0 0 272c0 26.5-21.5 48-48 48L48 512c-26.5 0-48-21.5-48-48L0 192zm64 80l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16zm128 0l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0zM64 400l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0zm112 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16z"/>
+                </svg>
+            </div>
+            <!-- Vida -->
+            <div class="flex items-center justify-center mt-8 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-7 h-7 text-[#0052d0] fill-current hover:bg-[#0080e7] transition rounded-lg ">
+                    <path d="M128 64c0-17.7-14.3-32-32-32S64 46.3 64 64l0 149.6L23.2 225.2c-17 4.9-26.8 22.6-22 39.6s22.6 26.8 39.6 22L64 280.1 64 448c0 17.7 14.3 32 32 32l256 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-224 0 0-154.1 136.8-39.1c17-4.9 26.8-22.6 22-39.6s-22.6-26.8-39.6-22L128 195.3 128 64z"/>
+                </svg>
+            </div>
+            <!-- Historial Mteorologico -->
+            <div class="flex items-center justify-center mt-8 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-7 h-7 text-[#0052d0] fill-current hover:bg-[#0080e7] transition rounded-lg ">
+                    <path d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zm64 192c17.7 0 32 14.3 32 32l0 96c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-96c0-17.7 14.3-32 32-32zm64-64c0-17.7 14.3-32 32-32s32 14.3 32 32l0 192c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-192zM320 288c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-32c0-17.7 14.3-32 32-32z"/>
+                </svg>
+            </div>
+            <!-- Favoritos -->
+            <div class="flex items-center justify-center mt-8 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-7 h-7 text-[#0052d0] fill-current hover:bg-[#0080e7] transition rounded-lg ">
+                    <path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/>
+                </svg>
+            </div>
+            <!-- Comentarios -->
+            <div class="flex items-center justify-center mt-8 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="w-7 h-7 text-[#0052d0] fill-current hover:bg-[#0080e7] transition rounded-lg ">
+                    <path d="M208 352c114.9 0 208-78.8 208-176S322.9 0 208 0S0 78.8 0 176c0 38.6 14.7 74.3 39.6 103.4c-3.5 9.4-8.7 17.7-14.2 24.7c-4.8 6.2-9.7 11-13.3 14.3c-1.8 1.6-3.3 2.9-4.3 3.7c-.5 .4-.9 .7-1.1 .8l-.2 .2s0 0 0 0s0 0 0 0C1 327.2-1.4 334.4 .8 340.9S9.1 352 16 352c21.8 0 43.8-5.6 62.1-12.5c9.2-3.5 17.8-7.4 25.2-11.4C134.1 343.3 169.8 352 208 352zM448 176c0 112.3-99.1 196.9-216.5 207C255.8 457.4 336.4 512 432 512c38.2 0 73.9-8.7 104.7-23.9c7.5 4 16 7.9 25.2 11.4c18.3 6.9 40.3 12.5 62.1 12.5c6.9 0 13.1-4.5 15.2-11.1c2.1-6.6-.2-13.8-5.8-17.9c0 0 0 0 0 0s0 0 0 0l-.2-.2c-.2-.2-.6-.4-1.1-.8c-1-.8-2.5-2-4.3-3.7c-3.6-3.3-8.5-8.1-13.3-14.3c-5.5-7-10.7-15.4-14.2-24.7c24.9-29 39.6-64.7 39.6-103.4c0-92.8-84.9-168.9-192.6-175.5c.4 5.1 .6 10.3 .6 15.5z"/>
+                </svg>
+            </div>
+            <!-- Inicio de sesion -->
+            <div class="flex items-center justify-center mt-171 cursor-pointer" href="/src/app/login/login.component.html">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-7 h-7 text-[#0052d0] fill-current hover:bg-[#0080e7] transition rounded-lg ">
+                    <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z"/>
+                </svg>
+            </div>
+            <!-- Configuracion -->
+            <div class="flex items-center justify-center mt-6 pb-5 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-7 h-7 text-[#0052d0] fill-current hover:bg-[#0080e7] transition rounded-lg ">
+                    <path d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8c-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4L83.1 425.9c-8.8 2.8-18.6 .3-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 273.1 64 264.6 64 256s.6-17.1 1.7-25.4L22.4 191.2c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160z"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <!-- Historial de Datos -->
+    <main class="w-full">
+        <menu class="grid-rows-2 grid-cols-1  ">
+            <!-- Buscador de lugares -->
+            <div class="flex  justify-between pl-3 items-center bg-[#b4ffff] ">
+                <h1 class="text-[#0052d0] font-semibold">Historial Meteorologico</h1>
+                <div tabindex="0" class="flex  bg-[#ffffff] rounded-xl mr-5 my-2 hover:border border-[#0052d0]">
+                    <input class=" text-[#0052d0] font-semibold pl-2  py-1.5  focus:outline-none" type="search" placeholder="Buscar Lugar"  >
+                    <img (click)="navegarLogin()" class="ml-2 w-7 h-7 pr-1.5 items-center cursor-pointer  my-auto " src="lupa.png" alt="hola">
+                </div>
+            </div>
+            <!-- Ubicaciones mas Populares -->
+            <div class="flex  bg-[rgba(180,255,255,0.6)] border-b border-b-amber-300">
+               
+                <div class="flex justify-center items-center gap-3 w-1/5 py-2.5 border-r border-r-[#0052d0] hover:bg-[rgba(0,128,231,0.2)] ">
+                    <p class="font-medium text-[#0080e7]">Bogota</p>
+                    <img class="w-5 h-5" src="nublado.png" alt="">
+                </div>
+                <div class="flex justify-center items-center gap-3 w-1/5 py-2.5 border-r border-r-[#0052d0] hover:bg-[rgba(0,128,231,0.2)] ">
+                    <p class="font-medium text-[#0080e7]">Cucuta</p>
+                    <img class="w-5 h-5" src="amanecer.png" alt="">
+                </div>
+                <div class="flex justify-center items-center gap-3 w-1/5 py-2.5 border-r border-r-[#0052d0] hover:bg-[rgba(0,128,231,0.2)] ">
+                    <p class="font-medium text-[#0080e7]">Cali</p>
+                    <img class="w-5 h-5" src="dia-lluvioso.png" alt="">
+                </div>
+                <div class="flex justify-center items-center gap-3 w-1/5 py-2.5 border-r border-r-[#0052d0] hover:bg-[rgba(0,128,231,0.2)] ">
+                    <p class="font-medium text-[#0080e7]">Medellin</p>
+                    <img class="w-5 h-5" src="tormenta.png" alt="">
+                </div>
+                <div class="flex justify-center items-center gap-3 w-1/5 py-2.5 border-r border-r-[#0052d0] hover:bg-[rgba(0,128,231,0.2)] ">
+                    <p class="font-medium text-[#0080e7]">Bucaramanga</p>
+                    <img class="w-5 h-5" src="ventisca.png" alt="">
+                </div>
+                
+            </div>
+        </menu>
+        <!-- centro de datos -->
+        <div class=" mx-40 mt-5 border-2">
+            <div class="flex gap-5 items-center mb-2">
+                <h2 class="text-[#0080e7] font-semibold text-xl">Bogota</h2>
+                <img class="w-5 h-5 cursor-pointer " src="casa.png" alt="casa">
+            </div>
+            <div class="flex gap-5 items-center" >
+                <h1>Tiempo Historico</h1>
+                <select class="text-white bg-[#0052d0] rounded-xl py-1.5 px-3 font-medium focus:outline-none"  name="año" id="año" >
+                    <option value="12">Ultimo Doce Meses</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                </select>
+                <select class="text-white bg-[#0052d0] rounded-xl py-1.5 px-3 font-medium focus:outline-none"  name="mes" id="mes" >
+                    <option value="mes">Todos los Meses</option>
+                    <option value="Enero">Enero</option>
+                    <option value="Febrero">Febrero</option>
+                    <option value="Marzo">Marzo</option>
+                    <option value="Abril">Abril</option>
+                </select>
+            </div>
+            <div class="border-2 mt-3">
+                <div class="flex gap-10 pl-3 my-2" >
+                    <button class="cursor-pointer flex gap-3 items-center font-semibold py-1 border-2 px-7 rounded-3xl " type="button" >
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                        <path d="M160 64c-26.5 0-48 21.5-48 48l0 164.5c0 17.3-7.1 31.9-15.3 42.5C86.2 332.6 80 349.5 80 368c0 44.2 35.8 80 80 80s80-35.8 80-80c0-18.5-6.2-35.4-16.7-48.9c-8.2-10.6-15.3-25.2-15.3-42.5L208 112c0-26.5-21.5-48-48-48zM48 112C48 50.2 98.1 0 160 0s112 50.1 112 112l0 164.4c0 .1 .1 .3 .2 .6c.2 .6 .8 1.6 1.7 2.8c18.9 24.4 30.1 55 30.1 88.1c0 79.5-64.5 144-144 144S16 447.5 16 368c0-33.2 11.2-63.8 30.1-88.1c.9-1.2 1.5-2.2 1.7-2.8c.1-.3 .2-.5 .2-.6L48 112zM208 368c0 26.5-21.5 48-48 48s-48-21.5-48-48c0-20.9 13.4-38.7 32-45.3L144 208c0-8.8 7.2-16 16-16s16 7.2 16 16l0 114.7c18.6 6.6 32 24.4 32 45.3z"/></svg>
+                        Temperatura
+                    </button>
+                    <button class="cursor-pointer flex gap-3 items-center font-semibold py-1 border-2 px-7 rounded-3xl " type="button">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                        <path fill="#63E6BE" d="M192 512C86 512 0 426 0 320C0 228.8 130.2 57.7 166.6 11.7C172.6 4.2 181.5 0 191.1 0l1.8 0c9.6 0 18.5 4.2 24.5 11.7C253.8 57.7 384 228.8 384 320c0 106-86 192-192 192zM96 336c0-8.8-7.2-16-16-16s-16 7.2-16 16c0 61.9 50.1 112 112 112c8.8 0 16-7.2 16-16s-7.2-16-16-16c-44.2 0-80-35.8-80-80z"/></svg>
+                        Precipitacion
+                    </button>
+                    <button class="cursor-pointer flex gap-3 items-center font-semibold py-1 border-2 px-7 rounded-3xl " type="button">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M448 96a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM320 96a96 96 0 1 1 192 0A96 96 0 1 1 320 96zM144 64c-26.5 0-48 21.5-48 48l0 164.5c0 17.3-7.1 31.9-15.3 42.5C70.2 332.6 64 349.5 64 368c0 44.2 35.8 80 80 80s80-35.8 80-80c0-18.5-6.2-35.4-16.7-48.9c-8.2-10.6-15.3-25.2-15.3-42.5L192 112c0-26.5-21.5-48-48-48zM32 112C32 50.2 82.1 0 144 0s112 50.1 112 112l0 164.4c0 .1 .1 .3 .2 .6c.2 .6 .8 1.6 1.7 2.8c18.9 24.4 30.1 55 30.1 88.1c0 79.5-64.5 144-144 144S0 447.5 0 368c0-33.2 11.2-63.8 30.1-88.1c.9-1.2 1.5-2.2 1.7-2.8c.1-.3 .2-.5 .2-.6L32 112zM192 368c0 26.5-21.5 48-48 48s-48-21.5-48-48c0-20.9 13.4-38.7 32-45.3l0-50.7c0-8.8 7.2-16 16-16s16 7.2 16 16l0 50.7c18.6 6.6 32 24.4 32 45.3z"/></svg>
+                        Humedad
+                    </button>
+                    <button class="cursor-pointer flex gap-3 items-center font-semibold py-1 border-2 px-7 rounded-3xl " type="button">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M288 32c0 17.7 14.3 32 32 32l32 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128c-17.7 0-32 14.3-32 32s14.3 32 32 32l320 0c53 0 96-43 96-96s-43-96-96-96L320 0c-17.7 0-32 14.3-32 32zm64 352c0 17.7 14.3 32 32 32l32 0c53 0 96-43 96-96s-43-96-96-96L32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-32 0c-17.7 0-32 14.3-32 32zM128 512l32 0c53 0 96-43 96-96s-43-96-96-96L32 320c-17.7 0-32 14.3-32 32s14.3 32 32 32l128 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-32 0c-17.7 0-32 14.3-32 32s14.3 32 32 32z"/></svg>
+                        Viento
+                    </button>
+                </div>
+                <div class="border-2">
+                    <h1>grafica principal de trabajo</h1>
+                    <canvas>grafica principal</canvas>
+                </div>
+            </div>
+            <section class="flex border-2 border-amber-300 my-5">
+                <div class="">
+                    <h1>grafica de pastel uno</h1>
+                    <canvas>grafica de pastel tres</canvas>
+                </div>
+                <div class="">
+                    <h1>grafica de pastel dos</h1>
+                    <canvas>grfica de pastel dos</canvas>
+                </div>
+            </section>
+            <table width="100%" class="border-1">
+                <tr class="flex gap-10">
+                    <th align="items-center" >Resumen diario</th>
+                    <th align="items-center" >Max</th>
+                    <th align="items-center" >Promedio</th>
+                    <th align="items-center" >Min</th>
+                </tr>
+                <tr class="flex gap-14">
+                    <td>Temeperatura alta</td>
+                    <td>24</td>
+                    <td>20</td>
+                    <td>15</td>
+                </tr>
+                <tr class="flex gap-14">
+                    <td>Temeperatura Baja</td>
+                    <td>24</td>
+                    <td>20</td>
+                    <td>15</td>
+                </tr>
+                <tr class="flex gap-18">
+                    <td>Precipitacion</td>
+                    <td>24</td>
+                    <td>20</td>
+                    <td>15</td>
+                </tr>
+                <tr class="flex gap-22">
+                    <td>Viento</td>
+                    <td>24</td>
+                    <td>20</td>
+                    <td>15</td>
+                </tr>
+                
+            </table>
+            <table class="border-2">
+                <tr class="flex gap-10">
+                    <th>Informacion sobre el tiempo</th>
+                    <th>Ultimos Meses</th>
+                    <th>Todos los años</th>
+                </tr>
+                <tr class="flex gap-14 ">
+                    <span>
+                        <img src="" alt="">
+                        <td>Mes mas Caluroso </td>
+                    </span>
+                    <td>24</td>
+                    <td>20</td>
+                    <td>15</td>
+                </tr>
+                <tr class="flex gap-14">
+                    <span>
+                        <img src="" alt="">
+                        <td>Mes mas frio </td>
+                    </span>
+                    <td>24</td>
+                    <td>20</td>
+                    <td>15</td>
+                </tr>
+                <tr class="flex gap-18 bg-[#0052d0]">
+                    <span>
+                        <img src="" alt="">
+                        <td>Mes mas Humedo </td>
+                    </span>
+                    <td>24</td>
+                    <td>20</td>
+                    <td>15</td>
+                </tr>
+                <tr class="flex gap-22">
+                    <span>
+                        <img src="" alt="">
+                        <td>Mes con mas Viento</td>
+                    </span>
+                    <td>24</td>
+                    <td>20</td>
+                    <td>15</td>
+                </tr>
+                
+            </table>
+        </div>
 
     </main>
+    
 </body>
