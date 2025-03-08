@@ -2,40 +2,44 @@
 
 
 <body class="flex justify-center items-center w-full h-screen">
+    <!-- Creacion del header -->
     <div class="bg-[#b4ffff] relative w-full h-full flex justify-center items-center">
-
-        <div class="absolute top-0 left-2 w-full p-4 flex items-center space-x-2">
+        <!-- Creacion del logo -->
+        <div (click)="navegarMain()" class="absolute top-0 left-2 w-full p-4 flex items-center space-x-2 cursor-pointer">
             <h1 class="text-4xl font-bold text-[#0052d0]">SkyTracker</h1>
             <img src="dia-nublado.png" alt="logo" class="w-8 h-8 text-[#0052d0] fill-current">
         </div>
-
-        <svg class="absolute h-screen text-[#0052d0]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">    
+        <!-- Creacion del SVG -->
+        <svg class="absolute bottom-0 left-0 w-full text-[#0052d0]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
             <path fill="currentColor" fill-opacity="1" 
                 d="M0,256L60,234.7C120,213,240,171,360,170.7C480,171,600,213,720,234.7C840,256,960,256,1080,245.3C1200,235,1320,213,1380,202.7L1440,192V320H1380C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320H0Z">
             </path>
         </svg>
-
+        <!-- Creacion de la primera seccion -->
         <div class="relative z-10 mt-20  p-8 bg-white rounded-xl shadow-2xl border border-gray-200">
             <img src="dia-nublado.png" alt="logo" class="w-20 h-20 text-[#0052d0] fill-current m-auto">
             <h2 class="text-2xl font-bold text-center text-[#0052d0] mb-6">Inicio de Sesión</h2>
-
+            <!-- Creacion del campo de usuario -->
             <div class="mb-4">
                 <label class="block text-gray-700 font-semibold mb-1">Usuario</label>
                 <input type="text" class="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#0052d0] focus:outline-none transition " placeholder="Ingrese su usuario">
             </div>
-
+            <!-- Creacion del campo de contraseña -->
             <div class="mb-4">
                 <label class="block text-gray-700 font-semibold mb-1">Contraseña</label>
                 <input type="password" class="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#0052d0] focus:outline-none transition" placeholder="Ingrese su contraseña">
             </div>
-
+            
+            <!-- Creacion del checkbox de recordarme -->
             <div class="flex items-center mb-4">
                 <input type="checkbox" id="remember" class="mr-2">
                 <label for="remember" class="text-sm text-gray-600">Recordarme</label>
             </div>
 
+            <!-- Creacion del boton de iniciar sesion -->
             <button class="w-full bg-[#0052d0] text-white font-semibold py-2 rounded-lg shadow-md hover:bg-[#0080e7] transition cursor-pointer">Iniciar Sesión</button>
 
+            <!-- Creacion de la segunda seccion -->
             <div class="mt-4 text-sm text-center text-gray-600">
                 <a href="#" class="text-[#0052d0] font-semibold hover:underline">¿No tienes una cuenta?</a> |
                 <a href="#" class="text-[#0052d0] font-semibold hover:underline">¿Se te olvidó tu contraseña?</a>
