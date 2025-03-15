@@ -46,7 +46,7 @@ luego dentro del poryecto se ejecutan los siguientes pasos.
 
 ## Screenshots
 
-[Configure PostCSS Plugins](configt.png)
+[Configure PostCSS Plugins](../../public/configt.png)
 
 ## Lenguajes de Programacion
 [TypeScript](https://www.typescriptlang.org/)
