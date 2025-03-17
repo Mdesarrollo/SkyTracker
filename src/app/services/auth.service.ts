@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
+import { initializeApp } from 'firebase/app';
 import { Auth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from '@angular/fire/auth';
+import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import { environment } from './../../environments/environment';
 import { Router } from '@angular/router';
+
+const firebaseApp = initializeApp(environment.firebaseConfig);
+const db = getFirestore(firebaseApp);
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -11,9 +17,21 @@ export class AuthService {
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(this.auth, provider);
+      const user = result.user;
       console.log('Usuario autenticado con Google:', result.user);
-      this.router.navigate(['/']);
-    } catch (error) {
+      this.router.navigate(['list']);
+
+      // Guardar en Firestore
+      setDoc(doc(db, 'users',user.uid), {
+        email: user.email,
+        name: user.displayName,
+        photoURL: user.photoURL,
+        uid: user.uid,
+      }).then(() => console.log('Datos guardados en Firestore'));
+
+      console.timeEnd('Tiempo de autenticación');
+      this.router.navigate(['list']);
+    }catch (error) {
       console.error('Error al autenticar con Google:', error);
     }
   }

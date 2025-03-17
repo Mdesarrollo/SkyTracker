@@ -1,0 +1,41 @@
+<body class="flex justify-center items-center w-full h-screen">
+    <!-- Creacion del header -->
+    <div class="bg-[#b4ffff] relative w-full h-full flex justify-center items-center">
+        <!-- Creacion del logo -->
+        <div (click)="navegarMain()" class="absolute top-0 left-2 w-full p-4 flex items-center space-x-2 cursor-pointer">
+            <h1 class="text-4xl font-bold text-[#0052d0]">SkyTracker</h1>
+            <img src="dia-nublado.png" alt="logo" class="w-8 h-8 text-[#0052d0] fill-current">
+        </div>
+        <!-- Creacion del SVG -->
+        <svg class="absolute bottom-0 left-0 w-full text-[#0052d0]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="currentColor" fill-opacity="1" 
+                d="M0,256L60,234.7C120,213,240,171,360,170.7C480,171,600,213,720,234.7C840,256,960,256,1080,245.3C1200,235,1320,213,1380,202.7L1440,192V320H1380C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320H0Z">
+            </path>
+        </svg>
+        <!-- Creacion de la primera seccion -->
+        <div class="relative z-10 mt-20  p-8 bg-white rounded-xl shadow-2xl border border-gray-200">
+            <img src="dia-nublado.png" alt="logo" class="w-20 h-20 text-[#0052d0] fill-current m-auto">
+            <h2 class="text-2xl font-bold text-center text-[#0052d0] mb-6 border-b border-[#0052d0] pb-2">Información del Usuario</h2>
+            <img *ngFor="let user of users" [src]="user.photoURL" alt="logo" class="w-15 h-15 text-[#0052d0] fill-current m-auto rounded-full">
+            <div class="flex mt-6">
+                <!-- Creacion del campo de usuario -->
+                <div class="mb-4" *ngFor="let user of users">
+                    <label class="block text-gray-700 font-bold mb-1">Correo electrónico</label>
+                    <p>{{ user.email }}</p>
+                </div>
+            </div>
+            
+            <!-- Creacion del campo de contraseña -->
+            <div class="mb-4" *ngFor="let user of users">
+                <label class="block text-gray-700 font-bold mb-1">Nombre del usuario</label>
+                <p>{{ user.name }}</p>
+            </div>
+
+            <!-- Creacion del boton de iniciar sesion -->
+            <button (click)="logout()" class="w-full bg-red-600 text-white font-semibold py-2 rounded-lg shadow-md hover:bg-red-400 transition cursor-pointer mt-3">Cerrar Sesión</button>
+
+            <!-- Creacion del boton de iniciar sesion con Google -->
+            <button class="w-full bg-[#0052d0] text-white font-semibold py-2 rounded-lg shadow-md hover:bg-[#0080e7] transition cursor-pointer mt-2">Volver a inicio</button>
+        </div>
+    </div>
+</body>
