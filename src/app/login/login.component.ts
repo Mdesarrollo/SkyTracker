@@ -19,4 +19,8 @@ export class LoginComponent {
   async loginWithGoogle() {
     await this.authService.loginWithGoogle();
   }
+
+  async loginWithEmailAndPassword() {
+    await this.authService.login('email@example.com', 'password');
+  }
 }
