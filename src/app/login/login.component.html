@@ -1,6 +1,4 @@
 
-
-
 <body class="flex justify-center items-center w-full h-screen">
     <!-- Creacion del header -->
     <div class="bg-[#b4ffff] relative w-full h-full flex justify-center items-center">
@@ -37,7 +35,10 @@
             </div>
 
             <!-- Creacion del boton de iniciar sesion -->
-            <button class="w-full bg-[#0052d0] text-white font-semibold py-2 rounded-lg shadow-md hover:bg-[#0080e7] transition cursor-pointer">Iniciar Sesión</button>
+            <button (click)="loginWithEmailAndPassword()" class="w-full bg-[#0052d0] text-white font-semibold py-2 rounded-lg shadow-md hover:bg-[#0080e7] transition cursor-pointer">Iniciar Sesión</button>
+
+            <!-- Creacion del boton de iniciar sesion con Google -->
+            <button (click)="loginWithGoogle()" class="w-full bg-[#0052d0] text-white font-semibold py-2 rounded-lg shadow-md hover:bg-[#0080e7] transition cursor-pointer mt-2">Iniciar Sesión con Google</button>
 
             <!-- Creacion de la segunda seccion -->
             <div class="mt-4 text-sm text-center text-gray-600">
