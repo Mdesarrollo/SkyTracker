@@ -16,6 +16,10 @@ export class LoginComponent {
     this.router.navigate(['main'])
   }
 
+  navegarRegister(){
+    this.router.navigate(['register'])
+  }
+
   async loginWithGoogle() {
     await this.authService.loginWithGoogle();
   }
