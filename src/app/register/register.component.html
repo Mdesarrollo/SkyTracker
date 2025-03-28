@@ -1,0 +1,58 @@
+
+<body class="flex justify-center items-center w-full h-screen bg-[#b4ffff] overflow-hidden">
+
+    <!-- Creacion del logo -->
+    <div class="absolute top-0 w-full p-4 flex items-center space-x-2 ">
+        <h1 (click)="navegarMain()" class="text-4xl font-bold text-[#0052d0] cursor-pointer">SkyTracker</h1>
+        <img src="dia-nublado.png" alt="logo" class="w-8 h-8 text-[#0052d0] fill-current">
+    </div>
+
+    <!-- Creacion de la primera seccion -->
+    <form (submit)="register()" class="mt-16 z-10  bg-white rounded-xl shadow-2xl  border-black flex flex-col p-10">
+        <img src="dia-nublado.png" alt="logo" class="w-20 h-20 text-[#0052d0] fill-current m-auto">
+        <h2 class="text-2xl font-bold text-center text-[#0052d0] mb-6">Registro</h2>
+        <!-- Creacion del campo de usuario -->
+        <label class="block text-gray-700 font-semibold mb-1 ">Correo</label>
+        <input type="email" [(ngModel)]="email" name="email" class="mb-4 w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#0052d0] focus:outline-none transition " placeholder="Ingrese su Correo">
+        <!-- Creacion del campo de contraseña -->
+        <div class="relative w-full mb-4 mr-28">
+
+            <label class="block text-gray-700 font-semibold mb-1">Contraseña</label>
+            
+            <input 
+                [type]="showPassword ? 'text' : 'password'" 
+                [(ngModel)]="password" 
+                name="password"
+                class=" w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#0052d0] focus:outline-none transition" 
+                placeholder="Ingrese su contraseña">
+            
+            <!-- Botón para mostrar u ocultar la contraseña -->
+            <button type="button" (click)="togglePasswordVisibility()" 
+                class="absolute right-3 top-9 text-gray-500 hover:text-black">
+                {{ showPassword ? '🙈' : '👁️' }}
+            </button>
+        </div>
+
+        <!-- creacion de recordarme -->
+        <div class="flex items-center mb-4 text-sm text-gray-600">
+            <input type="checkbox" name="recordarme" id="recordarme" class="mr-2">
+            <label for="recordarme">Recordarme</label>
+        </div>
+
+        <!-- Creacion del boton de iniciar sesion -->
+        <button class="mb-4 w-full bg-[#0052d0] text-white font-semibold py-2 rounded-lg shadow-md hover:bg-[#0080e7] transition cursor-pointer">Registrarme</button>
+
+        <p (click)="navegarLogin()"  class="flex justify-center text-[#0052d0] font-semibold text-sm hover:underline cursor-pointer">¿Ya tienes una cuenta?</p>
+    </form>
+
+    <!-- Creacion del SVG -->
+    <svg class="absolute bottom-0 left-0 w-full text-[#0052d0]  " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="currentColor" fill-opacity="1" 
+            d="M0,256L60,234.7C120,213,240,171,360,170.7C480,171,600,213,720,234.7C840,256,960,256,1080,245.3C1200,235,1320,213,1380,202.7L1440,192V320H1380C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320H0Z">
+        </path>
+    </svg>
+
+    
+</body>
+
+

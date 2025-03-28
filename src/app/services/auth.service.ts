@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { Auth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from '@angular/fire/auth';
+import { Auth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword,UserCredential } from '@angular/fire/auth';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import { environment } from './../../environments/environment';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ const db = getFirestore(firebaseApp);
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   constructor(private auth: Auth, private router: Router) {}
-
+  
   // Iniciar sesión con Google
   async loginWithGoogle() {
     try {
@@ -58,5 +58,19 @@ export class AuthService {
 
   getCurrentUser() {
     return this.auth.currentUser;
+  }
+
+  // creacion de registro 
+  signUp(email: string, password: string): Promise<UserCredential> {
+    return createUserWithEmailAndPassword(this.auth, email, password)
+      .then(userCredential => {
+        console.log('Usuario registrado:', userCredential);
+        this.router.navigate(['../main']); // Redirige a otra página después del registro (opcional)
+        return userCredential;
+      })
+      .catch(error => {
+        console.error('Error en el registro:', error);
+        throw error;
+      });
   }
 }
