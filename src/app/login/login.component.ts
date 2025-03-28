@@ -33,5 +33,12 @@ export class LoginComponent {
     this.authService.login(this.email, this.password)
       .then(userCredential => console.log('Usuario autenticado:', userCredential.user))
       .catch(error => console.error('Error al iniciar sesión:', error));
-    }
+  }
+
+  // configurar que se vea la contraseña
+  showPassword = false; // Variable para controlar la visibilidad de la contraseña
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 }
