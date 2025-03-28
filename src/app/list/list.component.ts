@@ -23,8 +23,17 @@ export class ListComponent implements OnInit {
     console.log('Usuarios: ', this.users);
   }
 
+  async onLogin() {
+    this.users = await this.userService.getUsers();
+    console.log('Usuarios: ', this.users);
+  }
+
   async logout() {
     await this.authService.logout();
     this.router.navigate(['login']);
+  }
+
+  async logInicio(){
+    this.router.navigate(['/']);
   }
 }
