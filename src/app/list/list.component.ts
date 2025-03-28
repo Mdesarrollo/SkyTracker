@@ -32,4 +32,8 @@ export class ListComponent implements OnInit {
     await this.authService.logout();
     this.router.navigate(['login']);
   }
+
+  async logInicio(){
+    this.router.navigate(['/']);
+  }
 }
