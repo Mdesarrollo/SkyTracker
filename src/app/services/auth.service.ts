@@ -37,13 +37,25 @@ export class AuthService {
   }
 
   // Iniciar sesión con email y password
-  async login(email: string, password: string): Promise<void> {
+  async login(email: string, password: string): Promise<UserCredential> {
     try {
       const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
-      console.log('Usuario autenticado:', userCredential.user);
+      const user = userCredential.user;
+      console.log('Usuario autenticado:', user);
+
+      setDoc(doc(db, 'users',user.uid), {
+        email: user.email,
+        name: user.displayName,
+        photoURL: user.photoURL,
+        uid: user.uid,
+      }).then(() => console.log('Datos guardados en Firestore'));
+      
+      this.router.navigate(['list'])
+      return userCredential;
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
       alert('Datos de acceso incorrectos');
+      throw error;
     }
   }
 
