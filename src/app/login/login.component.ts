@@ -35,6 +35,15 @@ export class LoginComponent {
       .catch(error => console.error('Error al iniciar sesión:', error));
   }
 
+  //Login con Facebook
+  loginWithFacebook() {
+    this.authService.loginWithFacebook().then(cred => {
+      console.log('Usuario:', cred.user);
+    }).catch(err => {
+      console.error('Error al iniciar sesión:', err);
+    });
+  }
+
   // configurar que se vea la contraseña
   showPassword = false; // Variable para controlar la visibilidad de la contraseña
 

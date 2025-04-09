@@ -1,6 +1,6 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { Auth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword,UserCredential } from '@angular/fire/auth';
+import { Auth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword,UserCredential, FacebookAuthProvider, signOut } from '@angular/fire/auth';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import { environment } from './../../environments/environment';
 import { Router } from '@angular/router';
@@ -34,6 +34,17 @@ export class AuthService {
     }catch (error) {
       console.error('Error al autenticar con Google:', error);
     }
+  }
+
+  //Iniciar sesión con Facebook
+  async loginWithFacebook() {
+    const provider = new FacebookAuthProvider();
+    return signInWithPopup(this.auth, provider)
+  }
+
+  // Cerrar sesión con Facebook
+  async logoutF() {
+    return signOut(this.auth);
   }
 
   // Iniciar sesión con email y password
