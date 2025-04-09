@@ -36,12 +36,8 @@ export class LoginComponent {
   }
 
   //Login con Facebook
-  loginWithFacebook() {
-    this.authService.loginWithFacebook().then(cred => {
-      console.log('Usuario:', cred.user);
-    }).catch(err => {
-      console.error('Error al iniciar sesión:', err);
-    });
+   async loginWithFacebook() {
+    await this.authService.loginWithFacebook();
   }
 
   // configurar que se vea la contraseña
