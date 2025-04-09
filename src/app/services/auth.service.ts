@@ -39,7 +39,22 @@ export class AuthService {
   //Iniciar sesión con Facebook
   async loginWithFacebook() {
     const provider = new FacebookAuthProvider();
-    return signInWithPopup(this.auth, provider)
+    const result = await signInWithPopup(this.auth, provider);
+    const user = result.user;
+    console.log('Usuario autenticado con Facebook:', result.user);
+    this.router.navigate(['list']);
+
+    // Guardar en Firestore
+    setDoc(doc(db, 'users',user.uid), {
+      email: user.email,
+      name: user.displayName,
+      photoURL: user.photoURL,
+      uid: user.uid,
+    }).then(() => console.log('Datos guardados en Firestore'));
+
+    console.timeEnd('Tiempo de autenticación');
+    this.router.navigate(['list']);
+    
   }
 
   // Cerrar sesión con Facebook
