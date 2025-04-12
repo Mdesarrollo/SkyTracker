@@ -14,7 +14,7 @@
             </path>
         </svg>
         <!-- Creacion de la primera seccion -->
-        <div class="relative z-10 mt-16  p-8 bg-white rounded-xl shadow-2xl border border-gray-200">
+        <div  class="relative z-10 mt-16  p-8 bg-white rounded-xl shadow-2xl border border-gray-200">
             <img src="dia-nublado.png" alt="logo" class="w-20 h-20 text-[#0052d0] fill-current m-auto">
             <h2 class="text-2xl font-bold text-center text-[#0052d0] mb-6">Inicio de Sesión</h2>
             <!-- Creacion del campo de usuario -->
@@ -23,9 +23,19 @@
                 <input [(ngModel)]="email" type="email" class="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#0052d0] focus:outline-none transition " placeholder="Ingrese su usuario">
             </div>
             <!-- Creacion del campo de contraseña -->
-            <div class="mb-4" (submit)="onLogin()">
+            <div class="mb-4 relative " (submit)="onLogin()">
                 <label class="block text-gray-700 font-semibold mb-1">Contraseña</label>
-                <input [(ngModel)]="password" type="password" class="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#0052d0] focus:outline-none transition" placeholder="Ingrese su contraseña">
+                <input
+                    [type]="showPassword ? 'text' : 'password'" 
+                    [(ngModel)]="password" 
+                    name="password" 
+                [(ngModel)]="password" type="password" class="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#0052d0] focus:outline-none transition" placeholder="Ingrese su contraseña">
+
+                <!-- Botón para mostrar u ocultar la contraseña -->
+                <button type="button" (click)="togglePasswordVisibility()" 
+                    class="absolute right-3 top-9 text-gray-500 hover:text-black mt-0.5">
+                    {{ showPassword ? '🙈' : '👁️' }}
+                </button>
             </div>
             
             <!-- Creacion del checkbox de recordarme -->
@@ -39,6 +49,9 @@
 
             <!-- Creacion del boton de iniciar sesion con Google -->
             <button (click)="loginWithGoogle()" class="w-full bg-[#0052d0] text-white font-semibold py-2 rounded-lg shadow-md hover:bg-[#0080e7] transition cursor-pointer mt-2">Iniciar Sesión con Google</button>
+
+            <!-- Creacion del boton de iniciar sesion con Facebook -->
+            <button (click)="loginWithFacebook()" class="w-full bg-[#0052d0] text-white font-semibold py-2 rounded-lg shadow-md hover:bg-[#0080e7] transition cursor-pointer mt-2">Iniciar Sesión con Facebook</button>
 
             <!-- Creacion de la segunda seccion -->
             <div class="mt-4 text-sm text-center text-gray-600 flex">
