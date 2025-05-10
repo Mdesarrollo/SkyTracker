@@ -18,4 +18,8 @@ export class MainComponent {
   navegarHistorial(){
     this.router.navigate(['historial'])
   }
+
+  navegarGithub(){
+    this.router.navigate(['bgithub'])
+  }
 }
