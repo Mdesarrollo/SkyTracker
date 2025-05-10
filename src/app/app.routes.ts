@@ -5,6 +5,7 @@ import { HistorialComponent } from "./historial/historial.component";
 import { MainComponent } from "./main/main.component";
 import { ListComponent } from "./list/list.component";
 import { RegisterComponent } from "./register/register.component";
+import { BgithubComponent } from './bgithub/bgithub.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -12,6 +13,7 @@ export const routes: Routes = [
     { path: 'main', component: MainComponent },
     { path: 'list', component: ListComponent },
     { path: 'register', component: RegisterComponent },
+    { path: 'bgithub', component: BgithubComponent },
     { path: '', redirectTo: 'main', pathMatch: 'full' },
 ];
 @NgModule({
