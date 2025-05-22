@@ -3,6 +3,7 @@ import { initializeApp } from 'firebase/app';
 import {
   Auth,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
@@ -80,6 +81,16 @@ export class AuthService {
       console.log('Usuario autenticado con Google:', result.user);
       this.router.navigate(['list']);
 
+      localStorage.setItem(
+        'user',
+        JSON.stringify({
+          email: user.email,
+          name: user.displayName,
+          photoURL: user.photoURL,
+          uid: user.uid,
+        })
+      );
+
       //Guardar en Firestore
       setDoc(doc(db, 'users', user.uid), {
         email: user.email,
@@ -112,13 +123,12 @@ export class AuthService {
 
             // Vincula GitHub a la cuenta de Google
             await linkWithCredential(githubResult.user, pendingCred);
-            console.log(githubResult.user+"hola comoe estas")
             alert(
               'Cuenta de Google vinculada exitosamente con tu cuenta de Github.'
             );
           } catch (linkError) {
-            console.error('Error al vincular GitHub con Google:', linkError);
-            alert('No se pudo vincular GitHub con la cuenta existente.');
+            console.error('Error al vincular Facebook con Google:', linkError);
+            alert('No se pudo vincular Facebook con la cuenta existente.');
           }
         } else {
           alert(
@@ -128,40 +138,32 @@ export class AuthService {
           );
         }
       } else {
-        console.error('Error en login con GitHub:', error);
+        console.error('Error en login con Facebook:', error);
       }
     }
   }
 
-  //Iniciar sesión con Facebook
-  // async loginWithFacebook() {
-  //   const provider = new FacebookAuthProvider();
-  //   const result = await signInWithPopup(this.auth, provider);
-  //   const user = result.user;
-  //   console.log('Usuario autenticado con Facebook:', result.user);
-  //   this.router.navigate(['list']);
-
-  //   // Guardar en Firestore
-  //   setDoc(doc(db, 'users', user.uid), {
-  //     email: user.email,
-  //     name: user.displayName,
-  //     photoURL: user.photoURL,
-  //     uid: user.uid,
-  //   }).then(() => console.log('Datos guardados en Firestore'));
-
-  //   console.timeEnd('Tiempo de autenticación');
-  //   this.router.navigate(['list']);
-  // }
-
   async loginWithFacebook() {
     const facebookProvider = new FacebookAuthProvider();
+    const result = await signInWithPopup(this.auth, facebookProvider);
+    const user = result.user;
 
     try {
       await signInWithPopup(this.auth, facebookProvider);
-      console.log("estas en facebook del try")
-      this.router.navigate(['/main']);
+      console.log('estas en facebook del try');
+      this.router.navigate(['list']);
+
+      localStorage.setItem(
+        'user',
+        JSON.stringify({
+          email: user.email,
+          name: user.displayName,
+          photoURL: user.photoURL,
+          uid: user.uid,
+        })
+      );
     } catch (error: any) {
-      console.log("estas con facebook en el cath")
+      console.log('estas con facebook en el cath');
       if (error.code === 'auth/account-exists-with-different-credential') {
         const pendingCred = error.credential;
         const email = error.customData?.email;
@@ -172,25 +174,37 @@ export class AuthService {
         }
 
         const methods = await fetchSignInMethodsForEmail(this.auth, email);
+        console.log('metodos', methods);
 
         if (methods.includes('google.com')) {
-          alert(`Este correo ya está vinculado a Google. Se procederá a vincular tu cuenta de GitHub con la cuenta de Google.`);
+          alert(
+            `Este correo ya está vinculado a Google. Se procederá a vincular tu cuenta de GitHub con la cuenta de Google.`
+          );
 
           try {
             const googleProvider = new GoogleAuthProvider();
-            const googleResult = await signInWithPopup(this.auth, googleProvider);
+            const googleResult = await signInWithPopup(
+              this.auth,
+              googleProvider
+            );
             const googleUser = googleResult.user;
 
             await linkWithCredential(googleUser, pendingCred);
-            alert('Cuenta de GitHub vinculada exitosamente con tu cuenta de Google.');
-            this.router.navigate(['/main']);
+            alert(
+              'Cuenta de Facebook vinculada exitosamente con tu cuenta de Google.'
+            );
+            this.router.navigate(['/list']);
           } catch (linkError) {
-            console.error('Error al vincular GitHub con Google:', linkError);
-            alert('No se pudo vincular la cuenta de GitHub.');
+            console.error('Error al vincular Facebook con Google:', linkError);
+            alert('No se pudo vincular la cuenta de Facebook.');
           }
         } else {
-          this.vincularfacebookSiYaEstoyConGoogle()
-          alert(`El correo ya está registrado con otro proveedor: ${methods.join(', ')}`);
+          this.vincularfacebookSiYaEstoyConGoogle();
+          alert(
+            `El correo ya está registrado con otro proveedor: ${methods.join(
+              ', '
+            )}`
+          );
         }
       } else {
         console.error('Error al registrar con GitHub:', error);
@@ -245,7 +259,7 @@ export class AuthService {
   }
 
   // creacion de registro
-  signUp(email: string, password: string): Promise<UserCredential> {
+   signUp(email: string, password: string): Promise<UserCredential> {
     return createUserWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
         console.log('Usuario registrado:', userCredential);
@@ -277,10 +291,10 @@ export class AuthService {
 
     try {
       await signInWithPopup(this.auth, githubProvider);
-      console.log("estas en github en el try")
+      console.log('estas en github en el try');
       this.router.navigate(['/main']);
     } catch (error: any) {
-      console.log("estas con github en el cath")
+      console.log('estas con github en el cath');
       if (error.code === 'auth/account-exists-with-different-credential') {
         const pendingCred = error.credential;
         const email = error.customData?.email;
@@ -293,23 +307,34 @@ export class AuthService {
         const methods = await fetchSignInMethodsForEmail(this.auth, email);
 
         if (methods.includes('google.com')) {
-          alert(`Este correo ya está vinculado a Google. Se procederá a vincular tu cuenta de GitHub con la cuenta de Google.`);
+          alert(
+            `Este correo ya está vinculado a Google. Se procederá a vincular tu cuenta de GitHub con la cuenta de Google.`
+          );
 
           try {
             const googleProvider = new GoogleAuthProvider();
-            const googleResult = await signInWithPopup(this.auth, googleProvider);
+            const googleResult = await signInWithPopup(
+              this.auth,
+              googleProvider
+            );
             const googleUser = googleResult.user;
 
             await linkWithCredential(googleUser, pendingCred);
-            alert('Cuenta de GitHub vinculada exitosamente con tu cuenta de Google.');
+            alert(
+              'Cuenta de GitHub vinculada exitosamente con tu cuenta de Google.'
+            );
             this.router.navigate(['/main']);
           } catch (linkError) {
             console.error('Error al vincular GitHub con Google:', linkError);
             alert('No se pudo vincular la cuenta de GitHub.');
           }
         } else {
-          this.vincularGitHubSiYaEstoyConGoogle()
-          alert(`El correo ya está registrado con otro proveedor: ${methods.join(', ')}`);
+          this.vincularGitHubSiYaEstoyConGoogle();
+          alert(
+            `El correo ya está registrado con otro proveedor: ${methods.join(
+              ', '
+            )}`
+          );
         }
       } else {
         console.error('Error al registrar con GitHub:', error);
@@ -318,4 +343,19 @@ export class AuthService {
     }
   }
 
+  async enviarCorreoReset(email: string): Promise<void> {
+    const actionCodeSettings = {
+      url: 'https://skytracker-b6ff2.web.app/login',
+      handleCodeInApp: false,
+    };
+
+    try {
+      await sendPasswordResetEmail(this.auth, email, actionCodeSettings);
+    } catch (error: any) {
+      if (error.code === 'auth/user-not-found') {
+        throw new Error('El correo no está registrado.');
+      }
+      throw error;
+    }
+  }
 }

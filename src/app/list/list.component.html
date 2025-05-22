@@ -16,19 +16,19 @@
         <div class="relative z-10 mt-20  p-8 bg-white rounded-xl shadow-2xl border border-gray-200">
             <img src="dia-nublado.png" alt="logo" class="w-20 h-20 text-[#0052d0] fill-current m-auto">
             <h2 class="text-2xl font-bold text-center text-[#0052d0] mb-6 border-b border-[#0052d0] pb-2">Información del Usuario</h2>
-            <img *ngFor="let user of users" [src]="user.photoURL" alt="logo" class="w-15 h-15 text-[#0052d0] fill-current m-auto rounded-full">
+            <img *ngIf="lastUser" [src]="lastUser.photoURL" alt="logo" class="w-15 h-15 text-[#0052d0] fill-current m-auto rounded-full">
             <div class="flex mt-6">
                 <!-- Creacion del campo de usuario -->
-                <div class="mb-4" *ngFor="let user of users">
+                <div class="mb-4" *ngIf="lastUser">
                     <label class="block text-gray-700 font-bold mb-1">Correo electrónico</label>
-                    <p>{{ user.email }}</p>
+                    <p>{{ lastUser.email }}</p>
                 </div>
             </div>
             
             <!-- Creacion del campo de contraseña -->
-            <div class="mb-4" *ngFor="let user of users">
+            <div class="mb-4" *ngIf="lastUser">
                 <label class="block text-gray-700 font-bold mb-1">Nombre del usuario</label>
-                <p>{{ user.name }}</p>
+                <p>{{ lastUser.name }}</p>
             </div>
 
             <!-- Creacion del boton de iniciar sesion -->

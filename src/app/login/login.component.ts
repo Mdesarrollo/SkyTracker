@@ -26,6 +26,10 @@ export class LoginComponent {
   navegarRegister(){
     this.router.navigate(['register'])
   }
+
+  navegarReset() {
+    this.router.navigate(['forgot-password']);
+  }
   //login con google
   async loginWithGoogle() {
     await this.authService.loginWithGoogle();
