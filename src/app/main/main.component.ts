@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService  } from "../services/auth.service";
+
 
 @Component({
   selector: 'app-main',
@@ -9,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrl: './main.component.css'
 })
 export class MainComponent {
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   navegarlogin(){
     this.router.navigate(['login'])
@@ -18,4 +20,14 @@ export class MainComponent {
   navegarHistorial(){
     this.router.navigate(['historial'])
   }
+
+  navegarGithub(){
+    this.router.navigate(['bgithub'])
+  }
+
+  mostrarperil(){
+    this.authService.showProfile()
+  }
+
+  
 }

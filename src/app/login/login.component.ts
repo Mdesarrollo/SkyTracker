@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -15,7 +16,8 @@ import { CommonModule } from '@angular/common';
 export class LoginComponent {
   email = '';
   password = '';
-  constructor(private router: Router, private authService: AuthService) {}
+  
+ constructor(private router: Router, private authService: AuthService) {}
 
   navegarMain(){
     this.router.navigate(['main'])
@@ -25,6 +27,10 @@ export class LoginComponent {
     this.router.navigate(['register'])
   }
 
+  navegarReset() {
+    this.router.navigate(['forgot-password']);
+  }
+  //login con google
   async loginWithGoogle() {
     await this.authService.loginWithGoogle();
   }
@@ -46,4 +52,12 @@ export class LoginComponent {
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
+  
+  //login con github
+
+  async loginWithGithub(){
+    await this.authService.registerWithGitHub();
+  }
+  
+  
 }

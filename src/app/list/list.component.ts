@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class ListComponent implements OnInit {
   users: any[] = [];
+  lastUser: any = null;
   constructor(private router: Router, private userService: UserService, private authService: AuthService) { }
 
   navegarMain(){
@@ -21,6 +22,12 @@ export class ListComponent implements OnInit {
   async ngOnInit() {
     this.users = await this.userService.getUsers();
     console.log('Usuarios: ', this.users);
+
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      this.lastUser = JSON.parse(userData);
+      console.log('Usuario anterior: ', this.lastUser);
+    }
   }
 
   async onLogin() {
@@ -28,10 +35,10 @@ export class ListComponent implements OnInit {
     console.log('Usuarios: ', this.users);
   }
 
-  async logout() {
-    await this.authService.logout();
-    this.router.navigate(['login']);
-  }
+  // async logout() {
+  //   await this.authService.logout();
+  //   this.router.navigate(['login']);
+  // }
 
   async logInicio(){
     this.router.navigate(['/']);
