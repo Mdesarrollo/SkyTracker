@@ -61,6 +61,9 @@ export class BgithubComponent {
       
   }
 
+  main(){
+    this.router.navigate(['main'])
+  }
   // loginWithGitHub() {
   //   const provider = new GithubAuthProvider();
   //   signInWithPopup(this.auth, provider)
