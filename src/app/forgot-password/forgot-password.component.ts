@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { FormsModule} from '@angular/forms';
 import { CommonModule} from '@angular/common';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -29,11 +30,13 @@ export class ForgotPasswordComponent {
     try {
       await this.authService.enviarCorreoReset(this.email);
       this.toastr.success('Correo de restablecimiento enviado exitosamente');
+      await Swal.fire("Correo de Recuperacion Enviado")
       setTimeout(() => {
         this.router.navigate(['login']);
       }, 2000);
     } catch (error: any) {
       this.toastr.error(error.message || 'Error al enviar correo de restablecimiento');
+      await Swal.fire("Error al Enviar el Correo de Recuperacion")
     }
   }
 }

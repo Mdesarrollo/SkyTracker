@@ -11,10 +11,9 @@ import {
   FacebookAuthProvider,
   signOut,
   GithubAuthProvider,
-  linkWithCredential,
-  fetchSignInMethodsForEmail,
-  linkWithPopup,
+  deleteUser,
 } from '@angular/fire/auth';
+import Swal from 'sweetalert2';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import { environment } from './../../environments/environment';
 import { Router } from '@angular/router';
@@ -26,53 +25,7 @@ const db = getFirestore(firebaseApp);
 export class AuthService {
   constructor(private auth: Auth, private router: Router) {}
 
-  //verficar si la cuanta de google ya esta registrada
-  async vincularGitHubSiYaEstoyConGoogle() {
-    const provider = new GithubAuthProvider();
-
-    try {
-      const result = await linkWithPopup(this.auth.currentUser!, provider);
-      alert('GitHub vinculado exitosamente a tu cuenta de Google.');
-    } catch (error: any) {
-      if (error.code === 'auth/credential-already-in-use') {
-        alert('Este GitHub ya está vinculado con otra cuenta.');
-      } else {
-        console.error('Error al vincular GitHub:', error);
-      }
-    }
-  }
-
-  // async vincularGoogleSiYaEstoyConGithub() {
-  //   const provider = new GoogleAuthProvider();
-
-  //   try {
-  //     const result = await linkWithPopup(this.auth.currentUser!, provider);
-  //     alert('Google vinculado exitosamente a tu cuenta de Github.');
-  //   } catch (error: any) {
-  //     if (error.code === 'auth/credential-already-in-use') {
-  //       alert('Este Google ya está vinculado con otra cuenta.');
-  //     } else {
-  //       console.error('Error al vincular Google:', error);
-  //     }
-  //   }
-  // }
-
-  async vincularfacebookSiYaEstoyConGoogle() {
-    const provider = new FacebookAuthProvider();
-
-    try {
-      const result = await linkWithPopup(this.auth.currentUser!, provider);
-      alert('Google vinculado exitosamente a tu cuenta de Github.');
-    } catch (error: any) {
-      if (error.code === 'auth/credential-already-in-use') {
-        alert('Este Google ya está vinculado con otra cuenta.');
-      } else {
-        console.error('Error al vincular Google:', error);
-      }
-    }
-  }
-
-  //google original
+  //login con google
   async loginWithGoogle() {
     try {
       const provider = new GoogleAuthProvider();
@@ -91,7 +44,7 @@ export class AuthService {
         })
       );
 
-      //Guardar en Firestore
+      // Guardar en Firestore
       setDoc(doc(db, 'users', user.uid), {
         email: user.email,
         name: user.displayName,
@@ -100,49 +53,13 @@ export class AuthService {
       }).then(() => console.log('Datos guardados en Firestore'));
 
       console.timeEnd('Tiempo de autenticación');
-      this.router.navigate(['list']);
+      this.router.navigate(['main']);
     } catch (error: any) {
       console.error('Error al autenticar con Google:', error);
-
-      if (error.code === 'auth/account-exists-with-different-credential') {
-        const pendingCred = error.credential;
-        const email = error.customData?.email;
-        const methods = await fetchSignInMethodsForEmail(this.auth, email);
-
-        if (methods.includes('github.com')) {
-          alert(
-            `Esta cuenta ya fue registrada con Google. Vamos a vincular GitHub a tu cuenta de Google.`
-          );
-          try {
-            // Inicia sesión con Google
-            const githubProvider = new GithubAuthProvider();
-            const githubResult = await signInWithPopup(
-              this.auth,
-              githubProvider
-            );
-
-            // Vincula GitHub a la cuenta de Google
-            await linkWithCredential(githubResult.user, pendingCred);
-            alert(
-              'Cuenta de Google vinculada exitosamente con tu cuenta de Github.'
-            );
-          } catch (linkError) {
-            console.error('Error al vincular Facebook con Google:', linkError);
-            alert('No se pudo vincular Facebook con la cuenta existente.');
-          }
-        } else {
-          alert(
-            `El correo ya está registrado con otro proveedor: ${methods.join(
-              ', '
-            )}`
-          );
-        }
-      } else {
-        console.error('Error en login con Facebook:', error);
-      }
     }
   }
 
+  // Inicio de sesion con facebook
   async loginWithFacebook() {
     const facebookProvider = new FacebookAuthProvider();
     const result = await signInWithPopup(this.auth, facebookProvider);
@@ -151,7 +68,7 @@ export class AuthService {
     try {
       await signInWithPopup(this.auth, facebookProvider);
       console.log('estas en facebook del try');
-      this.router.navigate(['list']);
+      this.router.navigate(['main']);
 
       localStorage.setItem(
         'user',
@@ -163,61 +80,74 @@ export class AuthService {
         })
       );
     } catch (error: any) {
-      console.log('estas con facebook en el cath');
-      if (error.code === 'auth/account-exists-with-different-credential') {
-        const pendingCred = error.credential;
-        const email = error.customData?.email;
-
-        if (!email) {
-          alert('No se pudo recuperar el correo del usuario.');
-          return;
-        }
-
-        const methods = await fetchSignInMethodsForEmail(this.auth, email);
-        console.log('metodos', methods);
-
-        if (methods.includes('google.com')) {
-          alert(
-            `Este correo ya está vinculado a Google. Se procederá a vincular tu cuenta de GitHub con la cuenta de Google.`
-          );
-
-          try {
-            const googleProvider = new GoogleAuthProvider();
-            const googleResult = await signInWithPopup(
-              this.auth,
-              googleProvider
-            );
-            const googleUser = googleResult.user;
-
-            await linkWithCredential(googleUser, pendingCred);
-            alert(
-              'Cuenta de Facebook vinculada exitosamente con tu cuenta de Google.'
-            );
-            this.router.navigate(['/list']);
-          } catch (linkError) {
-            console.error('Error al vincular Facebook con Google:', linkError);
-            alert('No se pudo vincular la cuenta de Facebook.');
-          }
-        } else {
-          this.vincularfacebookSiYaEstoyConGoogle();
-          alert(
-            `El correo ya está registrado con otro proveedor: ${methods.join(
-              ', '
-            )}`
-          );
-        }
-      } else {
-        console.error('Error al registrar con GitHub:', error);
-        alert('Error al registrar con GitHub.');
-      }
+      console.log('Error de login con Facebook');
     }
   }
 
-  // Cerrar sesión con Facebook
-  async logoutF() {
-    return signOut(this.auth);
+  //cierre de sesion con github si tiene una cuenta vinculada con el navegador
+
+  async logoutFromGitHub(): Promise<void> {
+    
+    const result = await Swal.fire({
+      title: "Quiere Cerrar Sesion de su Navegador antes de Iniciar",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Si",
+      denyButtonText: `No`
+    })
+    
+    if (result.isConfirmed) {
+          return new Promise<void>((resolve) => {
+          const logoutWindow = window.open('https://github.com/logout', '_blank');
+          const checkClosed = setInterval(() => {
+            if (logoutWindow?.closed) {
+              clearInterval(checkClosed);
+              resolve();
+            }
+          }, 500);
+        });
+      } 
+    
   }
 
+  async registerWithGitHub() {
+    await this.logoutFromGitHub()
+    try {
+      const provider = new GithubAuthProvider();
+      const result = await signInWithPopup(this.auth, provider);
+      const user = result.user;
+      await Swal.fire({
+        title: 'Inicio de sesion con GitHub Exitoso',
+        icon: 'success',
+        draggable: true,
+      });
+      console.log('Usuario autenticado con Google:', result.user);
+      this.router.navigate(['/main']);
+      localStorage.setItem(
+        'user',
+        JSON.stringify({
+          email: user.email,
+          name: user.displayName,
+          photoURL: user.photoURL,
+          uid: user.uid,
+        })
+      );
+
+      // Guardar en Firestore
+      setDoc(doc(db, 'users', user.uid), {
+        email: user.email,
+        name: user.displayName,
+        photoURL: user.photoURL,
+        uid: user.uid,
+      }).then(() => console.log('Datos guardados en Firestore'));
+
+      console.timeEnd('Tiempo de autenticación');
+      this.router.navigate(['main']);
+    } catch (error: any) {
+      console.error('Error al autenticar con Google:', error);
+    }
+  }
+  
   // Iniciar sesión con email y password
   async login(email: string, password: string): Promise<UserCredential> {
     try {
@@ -228,6 +158,11 @@ export class AuthService {
       );
       const user = userCredential.user;
       console.log('Usuario autenticado:', user);
+      await Swal.fire({
+        title: 'Inicio de Sesion Exitoso',
+        icon: 'success',
+        draggable: true,
+      });
 
       setDoc(doc(db, 'users', user.uid), {
         email: user.email,
@@ -236,117 +171,48 @@ export class AuthService {
         uid: user.uid,
       }).then(() => console.log('Datos guardados en Firestore'));
 
-      this.router.navigate(['list']);
+      this.router.navigate(['main']);
       return userCredential;
     } catch (error) {
+      Swal.fire({
+        title: 'Ingreso de Datos Incorrectos',
+        icon: 'success',
+        draggable: true,
+      })
       console.error('Error al iniciar sesión:', error);
-      alert('Datos de acceso incorrectos');
       throw error;
     }
   }
 
-  async logout(): Promise<void> {
-    try {
-      await this.auth.signOut();
-      console.log('Sesión cerrada exitosamente');
-    } catch (error) {
-      console.error('Error al cerrar sesión:', error);
-    }
-  }
-
-  getCurrentUser() {
-    return this.auth.currentUser;
-  }
-
   // creacion de registro
-   signUp(email: string, password: string): Promise<UserCredential> {
+  signUp(email: string, password: string): Promise<UserCredential> {
     return createUserWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
-        console.log('Usuario registrado:', userCredential);
+        Swal.fire({
+          title: 'Registro Exitoso',
+          icon: 'success',
+          draggable: true,
+        });
         this.router.navigate(['../main']); // Redirige a otra página después del registro (opcional)
         return userCredential;
       })
       .catch((error) => {
         console.error('Error en el registro:', error);
+        Swal.fire({
+          title: 'Error en el registro completa los campos correctamente',
+          icon: 'error',
+          draggable: true,
+        });
         throw error;
       });
-  }
-  //cierre de sesion con github si tiene una cuenta vinculada con el navegador
-
-  logoutFromGitHub(): Promise<void> {
-    return new Promise((resolve) => {
-      const logoutWindow = window.open('https://github.com/logout', '_blank');
-      const checkClosed = setInterval(() => {
-        if (logoutWindow?.closed) {
-          clearInterval(checkClosed);
-          resolve();
-        }
-      }, 500);
-    });
-  }
-
-  //Inicio de sesion con github
-  async registerWithGitHub() {
-    const githubProvider = new GithubAuthProvider();
-
-    try {
-      await signInWithPopup(this.auth, githubProvider);
-      console.log('estas en github en el try');
-      this.router.navigate(['/main']);
-    } catch (error: any) {
-      console.log('estas con github en el cath');
-      if (error.code === 'auth/account-exists-with-different-credential') {
-        const pendingCred = error.credential;
-        const email = error.customData?.email;
-
-        if (!email) {
-          alert('No se pudo recuperar el correo del usuario.');
-          return;
-        }
-
-        const methods = await fetchSignInMethodsForEmail(this.auth, email);
-
-        if (methods.includes('google.com')) {
-          alert(
-            `Este correo ya está vinculado a Google. Se procederá a vincular tu cuenta de GitHub con la cuenta de Google.`
-          );
-
-          try {
-            const googleProvider = new GoogleAuthProvider();
-            const googleResult = await signInWithPopup(
-              this.auth,
-              googleProvider
-            );
-            const googleUser = googleResult.user;
-
-            await linkWithCredential(googleUser, pendingCred);
-            alert(
-              'Cuenta de GitHub vinculada exitosamente con tu cuenta de Google.'
-            );
-            this.router.navigate(['/main']);
-          } catch (linkError) {
-            console.error('Error al vincular GitHub con Google:', linkError);
-            alert('No se pudo vincular la cuenta de GitHub.');
-          }
-        } else {
-          this.vincularGitHubSiYaEstoyConGoogle();
-          alert(
-            `El correo ya está registrado con otro proveedor: ${methods.join(
-              ', '
-            )}`
-          );
-        }
-      } else {
-        console.error('Error al registrar con GitHub:', error);
-        alert('Error al registrar con GitHub.');
-      }
-    }
   }
 
   async enviarCorreoReset(email: string): Promise<void> {
     const actionCodeSettings = {
       url: 'https://skytracker-b6ff2.web.app/login',
       handleCodeInApp: false,
+      
+      
     };
 
     try {
@@ -356,6 +222,111 @@ export class AuthService {
         throw new Error('El correo no está registrado.');
       }
       throw error;
+    }
+  }
+
+  //implemantacion de el cierre y eliminacion de cuenta con pop up
+  async showProfile() {
+    const user = this.auth.currentUser;
+    let result: any;
+    // si el proveddor solo da los datos de imagen del usuario
+    if (user?.displayName == null && user?.email == null) {
+      if (!user) return;
+      console.log(this.auth.currentUser);
+      result = await Swal.fire({
+        title: user.displayName || 'Perfil de Usuario',
+        html: `
+          <img src="${
+            user.photoURL || 'https://via.placeholder.com/100'
+          }" width="100" style="border-radius: 50%; margin-top: 10px; margin:auto" />
+        `,
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Cerrar sesión',
+        denyButtonText: 'Eliminar cuenta',
+        cancelButtonText: 'Cerrar',
+        reverseButtons: true,
+      });
+    } else if (user.displayName == null && user.photoURL == null) {
+      // si el provedor solo da el correo como indormacion
+      if (!user) return;
+      console.log(this.auth.currentUser);
+      result = await Swal.fire({
+        title: user.displayName || 'Perfil de Usuario',
+        html: `
+          <p><strong>Correo:</strong> ${user.email} </p>
+          <br>
+          <img src=" ${
+            user.photoURL ||
+            'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
+          }" width="100" style="border-radius: 50%; margin-top: 10px; margin:auto" />
+        `,
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Cerrar sesión',
+        denyButtonText: 'Eliminar cuenta',
+        cancelButtonText: 'Cerrar',
+        reverseButtons: true,
+      });
+    } else {
+      // si el provedor da solo la foto y el nombre
+      if (!user) return;
+      console.log(this.auth.currentUser);
+      result = await Swal.fire({
+        title: user.displayName || 'Perfil de Usuario',
+        html: `
+          <br>
+          <img src=" ${
+            user.photoURL ||
+            'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
+          }" width="200" style="border-radius: 50%; margin-top: 10px; margin:auto" />
+        `,
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Cerrar sesión',
+        denyButtonText: 'Eliminar cuenta',
+        cancelButtonText: 'Cerrar',
+        reverseButtons: true,
+      });
+    }
+
+    // Cerrar sesión
+    if (result.isConfirmed) {
+      await signOut(this.auth);
+      Swal.fire('Sesión cerrada', 'Has salido correctamente.', 'success');
+    }
+
+    // Eliminar cuenta
+    if (result.isDenied) {
+      const confirmDelete = await Swal.fire({
+        title: '¿Eliminar cuenta?',
+        text: 'Esta acción no se puede deshacer.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+      });
+
+      if (confirmDelete.isConfirmed) {
+        try {
+          await deleteUser(user);
+          Swal.fire(
+            'Cuenta eliminada',
+            'Tu cuenta ha sido eliminada de Firebase.',
+            'success'
+          );
+        } catch (error: any) {
+          if (error.code === 'auth/requires-recent-login') {
+            Swal.fire(
+              'Error',
+              'Debes volver a iniciar sesión para eliminar tu cuenta.',
+              'error'
+            );
+          } else {
+            Swal.fire('Error', error.message, 'error');
+          }
+        }
+      }
     }
   }
 }
