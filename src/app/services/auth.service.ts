@@ -38,10 +38,6 @@ export class AuthService {
   ): Promise<void> {
     try {
       // Firestore generará automáticamente un ID de documento para cada evento de inicio de sesión,
-      // asegurando entradas únicas y evitando sobrescribir.
-      // Puedes usar una combinación de UID y timestamp para un ID más legible,
-      // o simplemente dejar que Firestore genere un ID completamente aleatorio
-      // usando `addDoc(collection(db, 'user_logins'), { ... })`.
       const docRef = doc(db, 'user_logins', `${user.uid}_${Date.now()}`);
       await setDoc(docRef, {
         uid: user.uid,
@@ -206,10 +202,8 @@ export class AuthService {
     await this.logoutFromGitHub();
     try {
       const provider = new GithubAuthProvider();
-      // **AÑADIR ESTAS LÍNEAS PARA SOLICITAR LOS SCOPES DE EMAIL Y PERFIL**
       provider.addScope('user:email'); // Solicita acceso a la dirección de correo electrónico del usuario
       provider.addScope('read:user'); // Solicita acceso a la información pública y no pública del perfil del usuario (incluye nombre)
-      // Fin de la adición de scopes
       const result = await signInWithPopup(this.auth, provider);
       const user = result.user;
 
