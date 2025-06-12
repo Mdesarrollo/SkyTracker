@@ -1,0 +1,130 @@
+<body
+  class="flex justify-center items-center w-full min-h-screen bg-[#b4ffff] overflow-auto py-10"
+>
+  <div
+    class="relative z-10 w-4/5 bg-white rounded-xl shadow-2xl border border-gray-200 p-8"
+  >
+    <h2
+      class="text-3xl font-bold text-center text-[#0052d0] mb-6 border-b border-[#0052d0] pb-2"
+    >
+      Historial de Usuarios
+    </h2>
+
+    <div class="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <label for="searchTerm" class="block text-gray-700 font-semibold mb-2"
+          >Buscar Usuario (Nombre/Correo):</label
+        >
+        <input
+          type="text"
+          id="searchTerm"
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="applyFilters()"
+          placeholder="Ej: Juan Pérez o juan@ejemplo.com"
+          class="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#0052d0] focus:outline-none transition"
+        />
+      </div>
+
+      <div>
+        <label for="selectedDate" class="block text-gray-700 font-semibold mb-2"
+          >Filtrar por Fecha Específica:</label
+        >
+        <input
+          type="date"
+          id="selectedDate"
+          [(ngModel)]="selectedDate"
+          (ngModelChange)="applyFilters()"
+          class="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#0052d0] focus:outline-none transition"
+        />
+      </div>
+
+      <div class="flex items-end space-x-2">
+        <button
+          (click)="resetFiltersAndShowAll()"
+          class="w-full bg-[#0052d0] text-white font-semibold py-2 rounded-lg shadow-md hover:bg-[#0080e7] transition cursor-pointer"
+        >
+          Ver Todos los Usuarios
+        </button>
+        <button
+          (click)="resetFiltersAndShowAll()"
+          class="w-full bg-gray-500 text-white font-semibold py-2 rounded-lg shadow-md hover:bg-gray-700 transition cursor-pointer"
+        >
+          Limpiar Filtros
+        </button>
+        <button
+          (click)="forceReloadData()"
+          class="w-full bg-green-500 text-white font-semibold py-2 rounded-lg shadow-md hover:bg-green-700 transition cursor-pointer"
+        >
+          Recargar Datos
+        </button>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table
+        class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md"
+      >
+        <thead>
+          <tr>
+            <th
+              class="px-6 py-3 border-b border-gray-300 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+              (click)="toggleSortDirection('displayName')"
+            >
+              Nombre
+              <span *ngIf="sortBy === 'displayName'">{{
+                sortDirection === "asc" ? "▲" : "▼"
+              }}</span>
+            </th>
+            <th
+              class="px-6 py-3 border-b border-gray-300 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+              (click)="toggleSortDirection('email')"
+            >
+              Correo Electrónico
+              <span *ngIf="sortBy === 'email'">{{
+                sortDirection === "asc" ? "▲" : "▼"
+              }}</span>
+            </th>
+            <th
+              class="px-6 py-3 border-b border-gray-300 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Método de Autenticación
+            </th>
+            <th
+              class="px-6 py-3 border-b border-gray-300 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+              (click)="toggleSortDirection('timestamp')"
+            >
+              Fecha y Hora de Acceso
+              <span *ngIf="sortBy === 'timestamp'">{{
+                sortDirection === "asc" ? "▲" : "▼"
+              }}</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bg-white">
+          <tr
+            *ngFor="let entry of filteredLoginHistory"
+            class="hover:bg-gray-50"
+          >
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              {{ entry.displayName || "N/A" }}
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              {{ entry.email || "N/A" }}
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              {{ entry.authMethod }}
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              {{ formatTimestamp(entry.timestamp) }}
+            </td>
+          </tr>
+          <tr *ngIf="filteredLoginHistory.length === 0">
+            <td colspan="4" class="px-6 py-4 text-center text-gray-500">
+              No se encontraron registros.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
