@@ -34,7 +34,7 @@ const db = getFirestore(firebaseApp);
 export class UserService {
   constructor() {}
 
-  // NUEVO: Método para obtener todos los usuarios con actualizaciones en tiempo real
+  //Método para obtener todos los usuarios con actualizaciones en tiempo real
   getAllUsersRealtime(
     sortBy: string = 'timestamp',
     sortDirection: 'desc' | 'asc' = 'desc'

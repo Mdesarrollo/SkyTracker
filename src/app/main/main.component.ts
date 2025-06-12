@@ -28,8 +28,7 @@ export class MainComponent {
   mostrarperil(){
     this.authService.showProfile()
   }
-
-  // Nuevo método de navegación
+  
   navegarUserHistory(){
     this.router.navigate(['user-history']);
   }

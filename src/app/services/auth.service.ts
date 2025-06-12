@@ -312,14 +312,11 @@ export class AuthService {
     return createUserWithEmailAndPassword(this.auth, email, password)
       .then(async (userCredential) => {
         const user = userCredential.user;
-        // Opcional: guardar datos de registro en Firestore para un perfil de usuario estático
-        // Si ya tienes una colección 'users' para perfiles de usuario, podrías guardarlo aquí.
-        // Esto es diferente de la colección 'user_logins' que es para cada evento de inicio de sesión.
         await setDoc(doc(db, 'users', user.uid), {
           uid: user.uid,
           email: user.email,
-          displayName: user.displayName, // Probablemente será nulo para registro con email/contraseña inicialmente
-          photoURL: user.photoURL, // Probablemente será nulo para registro con email/contraseña inicialmente
+          displayName: user.displayName, 
+          photoURL: user.photoURL, 
           createdAt: serverTimestamp(), // Marca de tiempo para la creación del usuario
         });
         console.log('Usuario registrado y perfil creado en Firestore:', user);

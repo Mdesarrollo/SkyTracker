@@ -30,7 +30,6 @@ export class UserHistoryComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // Es crucial desuscribirse cuando el componente se destruye para evitar fugas de memori
     if (this.dataSubscription) {
       this.dataSubscription.unsubscribe();
       console.log('UserHistoryComponent: Suscripción a datos en tiempo real desuscrita.');
@@ -60,7 +59,7 @@ export class UserHistoryComponent implements OnInit, OnDestroy {
 
   applyFilters() {
     console.log('UserHistoryComponent: Aplicando filtros. Datos brutos:', this.userLoginHistory.length);
-    let tempHistory = [...this.userLoginHistory]; // Trabaja en una copia para no modificar el original
+    let tempHistory = [...this.userLoginHistory]; 
 
     // 1. Filtrar por término de búsqueda (nombre o correo electrónico)
     if (this.searchTerm) {
@@ -75,16 +74,12 @@ export class UserHistoryComponent implements OnInit, OnDestroy {
 
     // 2. Filtrar por fecha específica
     if (this.selectedDate) {
-      // Importante: Asegurarse de que la fecha seleccionada se interprete correctamente (sin problemas de zona horaria)
-      // Agregamos 'T00:00:00' para asegurar que se parsea como la medianoche local
+     
       const selectedDateTime = new Date(this.selectedDate + 'T00:00:00');
 
       tempHistory = tempHistory.filter((entry) => {
         if (entry.timestamp && typeof entry.timestamp.toDate === 'function') {
           const entryDate = entry.timestamp.toDate(); // Convierte el Timestamp de Firestore a un objeto Date de JS
-
-          // Compara solo el día, mes y año de ambas fechas.
-          // Esto maneja la comparación de fechas sin considerar la hora.
           return (
             entryDate.getFullYear() === selectedDateTime.getFullYear() &&
             entryDate.getMonth() === selectedDateTime.getMonth() &&
@@ -110,7 +105,7 @@ export class UserHistoryComponent implements OnInit, OnDestroy {
         valueA = a.timestamp ? a.timestamp.toDate().getTime() : 0;
         valueB = b.timestamp ? b.timestamp.toDate().getTime() : 0;
       } else if (this.sortBy === 'displayName') {
-        // Asegúrate de que los valores sean strings para toLowerCase
+        // Asegúrarse de que los valores sean strings para toLowerCase
         valueA = (a.displayName || '').toLowerCase();
         valueB = (b.displayName || '').toLowerCase();
       } else if (this.sortBy === 'email') {
